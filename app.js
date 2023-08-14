@@ -1,3 +1,4 @@
+//ANIMATION + SCROLL CONFIG
 //basics
 let controller
 let slideScene
@@ -56,6 +57,64 @@ function animateSlides() {
         .addTo(controller)
     })
 }
+
+
+
+const mouse = document.querySelector(".cursor")
+const mouseText = mouse.querySelector("span")
+const burger = document.querySelector(".burger")
+
+//MOUSE CONFIG
+function cursor(e) {
+    mouse.style.top = e.pageY + "px"
+    mouse.style.left = e.pageX + "px"
+}
+
+function activeCursor(e) {
+    //Checks info on target
+    const item = e.target
+    if (item.id === "logo" || item.classList.contains("burger")) {
+        mouse.classList.add("nav-active")
+    } else {
+        mouse.classList.remove("nav-active")
+    }
+    if (item.classList.contains("explore")) {
+        mouse.classList.add("explore-active")
+        gsap.to(".title-swipe", 1, {y: "0%"}) //moves div for color up effect
+        mouseText.innerText = "Tap"
+    } else {
+        mouse.classList.remove("explore-active")
+        gsap.to(".title-swipe", 1, {y: "100%"}) //moves div for color down effect
+        mouseText.innerText = ""
+    }
+}
+
+//BURGER MENU CONFIG
+
+//burger lines animation
+function navToggle(e) {
+    //toggle
+    if (!e.target.classList.contains("active")) {
+        e.target.classList.add("active")
+        gsap.to(".line1", 0.5, {rotate: "45", y: 5, backgroundColor: "black"})
+        gsap.to(".line2", 0.5, {rotate: "-45", y: -5, backgroundColor: "black"})
+        gsap.to("#logo", 1, {color: "black"})
+        gsap.to(".nav-bar", 1, {clipPath: "circle(2500px at 100% -10%)"})
+        document.body.classList.add("hide") //adds class to remove overflow on menu open
+    } else {
+        e.target.classList.remove("active")
+        gsap.to(".line1", 0.5, {rotate: "0", y: 0, backgroundColor: "white"})
+        gsap.to(".line2", 0.5, {rotate: "0", y: 0, backgroundColor: "white"})
+        gsap.to("#logo", 1, {color: "white"})
+        gsap.to(".nav-bar", 1, {clipPath: "circle(50px at 100% -10%)"})
+        document.body.classList.add("hide")
+    }
+    
+}
+
+burger.addEventListener("click", navToggle)
+window.addEventListener("mousemove", cursor) 
+window.addEventListener("mouseover", activeCursor)
 
 animateSlides()
 
