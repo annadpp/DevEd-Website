@@ -59,10 +59,13 @@ body {
   position: relative;
 }
 
-.hero-img {
+.hero-container {
   position: relative;
   flex: 1;
   flex-basis: 25rem;
+}
+
+.hero-img {
   /*For the scale animation to stick within borders*/
   overflow: hidden;
 }
@@ -154,10 +157,10 @@ body {
 .reveal-text {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 150%;
   background-color: #17181a;
   left: 0;
-  top: 0;
+  top: -15%;
 }
 
 /*basis for round cursor*/
@@ -167,4 +170,9 @@ body {
   border: 2px solid white;
   border-radius: 50%;
   position: absolute;
+}
+
+/*stops scrollmagic-pin-spacer to prevent clicking on lower part of slider*/
+.scrollmagic-pin-spacer {
+  position: static !important;
 }
